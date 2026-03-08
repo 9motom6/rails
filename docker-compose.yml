@@ -1,9 +1,15 @@
 version: "3.8"
 
 services:
-  web:
-    build: .
+  rails:
+    image: ghcr.io/9motom6/rails:6388d46
     ports:
       - "8765:8000"
-    volumes:
-      - ./src:/app/src
+    networks:
+      - cloudflared_default
+    restart: unless-stopped
+
+networks:
+  cloudflared_default:
+    external: true
+    name: cloudflared_default
